@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/esm/Container';
 
-export default function ModalUpdate({ show, onHide, editHandler }) {
+export default function ModalUpdate({ show, onHide, editHandler, clock }) {
   return (
     <Modal
       show={show}
@@ -17,7 +17,7 @@ export default function ModalUpdate({ show, onHide, editHandler }) {
         <Form onSubmit={editHandler}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Name</Form.Label>
-            <Form.Control name="name" type="text" placeholder="Name clock" />
+            <Form.Control name="name" type="text" placeholder="Name clock" defaultValue={clock?.name}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Image</Form.Label>

@@ -12,8 +12,11 @@ export default function AdminPage() {
   const [clocks, setClocks] = useState([]);
   const [show, setShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
+
+  const [editingClock, setEditingClock] = useState(null);
+
   const handleModalClose = () => setModalShow(false);
-  const handleModalShow = () => setModalShow(true);
+  const handleModalShow = (id) => setEditingClock(id);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //   const handler
@@ -64,7 +67,8 @@ export default function AdminPage() {
         ))}
       </Row>
       <ModalUpdate
-        show={modalShow}
+        show={editingClock !== null}
+        clock={clocks.find((clock) => clock.id === editingClock)}
         onHide={handleModalClose}
         editHandlerv={editHandler}
       />

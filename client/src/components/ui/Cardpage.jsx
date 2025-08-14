@@ -9,7 +9,7 @@ export default function Cardpage({ clock, deleteHandler, handleModalShow }) {
       <Card.Body>
         <Card.Title>{clock.name}</Card.Title>
         <Card.Text>{clock.description}</Card.Text>
-        <Button variant="primary" onClick={handleModalShow} >
+        <Button variant="primary" onClick={() => handleModalShow(clock.id)} >
           Изменить
         </Button>{' '}
         {'   '}
