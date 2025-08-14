@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Outlet, Route, Routes } from "react-router";
 import Layout from "./components/Layout";
 import MainPage from "./components/pages/MainPage";
@@ -6,6 +7,7 @@ import axios from "axios";
 import SigninPage from "./components/pages/SigninPage";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import ErrorPage from './components/pages/ErrorPage';
 
 function App() {
   const navigate = useNavigate();
@@ -52,12 +54,14 @@ function App() {
         }
       >
         <Route path="/" element={<MainPage submitHandler={submitHandler} />} />
+
         <Route path="/admin" element={<AdminPage />} />
         <Route
           path="/signin"
           element={<SigninPage signinHandler={signinHandler} />}
         />
         <Route path="/about" />
+          <Route path="/*" element={<ErrorPage />} />
       </Route>
     </Routes>
   );
