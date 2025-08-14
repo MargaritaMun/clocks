@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Container from 'react-bootstrap/esm/Container';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function MainPage() {
   const [clocks, setClocks] = useState([]);
-  
 
   const settings = {
     dots: true,
@@ -19,20 +19,22 @@ export default function MainPage() {
   };
 
   useEffect(() => {
-    axios.get("/api/clocks/all").then((res) => setClocks(res.data));
+    axios.get('/api/clocks/all').then((res) => setClocks(res.data));
   }, []);
 
   return (
     <div>
-      <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-        <Slider {...settings}>
-          {clocks.map((clock) => (
-            <div key={clock.id}>
-              <p>{clock.name}</p> <img src={clock.image} width={180} />
-              <p>{clock.description} </p>
-            </div>
-          ))}
-        </Slider>
+      <div>
+        <Container>
+          <Slider {...settings}>
+            {clocks.map((clock) => (
+              <div key={clock.id}>
+                <p>{clock.name}</p> <img src={clock.image} width={180} />
+                <p>{clock.description} </p>
+              </div>
+            ))}
+          </Slider>
+        </Container>
       </div>
       <form>
         <div>
