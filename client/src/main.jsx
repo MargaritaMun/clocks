@@ -1,9 +1,11 @@
-import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
-import { StrictMode } from 'react'
 
-createRoot(document.getElementById("root")).render(
-   <StrictMode>
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
+import { BrowserRouter } from 'react-router';
+import 'bootstrap/dist/css/bootstrap.min.css';
+createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
+
     <App />
-  </StrictMode>,
+  </BrowserRouter>,
 );
