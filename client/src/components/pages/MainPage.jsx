@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function MainPage() {
+export default function MainPage({ submitHandler }) {
   const [clocks, setClocks] = useState([]);
 
   const settings = {
@@ -18,13 +18,21 @@ export default function MainPage() {
     autoplaySpeed: 3000,
   };
 
+  if (window.location.hash === "#contact-form") {
+    const formElement = document.getElementById("contact-form");
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
   useEffect(() => {
     axios.get('/api/clocks/all').then((res) => setClocks(res.data));
   }, []);
 
   return (
     <div>
-      <div>
+
+      <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <Container>
           <Slider {...settings}>
             {clocks.map((clock) => (
@@ -35,29 +43,33 @@ export default function MainPage() {
             ))}
           </Slider>
         </Container>
+
       </div>
-      <form>
-        <div>
+      <section id="contact-form">
+        <h2>Контактная форма</h2>
+        <form onSubmit={submitHandler}>
           <label>
             Name: <input type="text" name="userName" />
           </label>
-        </div>
-        <div>
-          <label>
-            Phone: <input type="text" name="phoneNumber" />
-          </label>
-        </div>
-        <div>
-          <label>
-            Image: <input type="text" name="image" />
-          </label>
-        </div>
-        <div>
-          <label>
-            Description: <input type="text" name="description" />
-          </label>
-        </div>
-      </form>
+
+          <div>
+            <label>
+              Phone: <input type="text" name="phoneNumber" />
+            </label>
+          </div>
+          <div>
+            <label>
+              Image: <input type="text" name="image" />
+            </label>
+          </div>
+          <div>
+            <label>
+              Description: <input type="text" name="description" />
+            </label>
+          </div>
+          <button>Отправить форму</button>
+        </form>
+      </section>
     </div>
   );
 }
