@@ -1,4 +1,4 @@
-const { User } = require('../../db/models');
+const { Admin } = require('../../db/models');
 const bcrypt = require('bcrypt');
 
 class AuthService {
@@ -25,25 +25,28 @@ class AuthService {
     return user ? user.get() : null;
   }
 
-  static async checkPassword(password,hashpassword) {
+  static async checkPassword(password, hashpassword) {
     return bcrypt.compare(password, hashpassword);
   }
 
-  static async signin({ email, password }) {
-    if (!email || !password) {
+  static async signin({ name, password }) {
+    if (!name || !password) {
       throw new Error('Не все поля заполнены');
     }
-    const user = await User.findOne({ where: { email } });
+    const user = await Admin.findOne({ where: { name } });
+
     if (!user) {
       throw new Error('Пользователь не найден');
     }
-    const isMatch = await bcrypt.compare(password, user.hashpassword);
+    const isMatch = await bcrypt.compare(password, user.hashPass);
     if (!isMatch) {
       throw new Error('Неверный пароль');
     }
     const plainUser = user.get();
-    delete plainUser.hashpassword;
-    return { user: plainUser };
+    delete plainUser.hashPass;
+    return plainUser;
+  
+    
   }
 }
 module.exports = AuthService;

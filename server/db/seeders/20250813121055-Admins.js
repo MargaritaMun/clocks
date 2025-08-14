@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require('bcrypt');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -6,7 +7,7 @@ module.exports = {
     await queryInterface.bulkInsert('Admins', [
       {
         name: 'Margarita',
-        hashPass: 'pass1',
+        hashPass: await bcrypt.hash('123', 10),
       },
     ]);
   },
