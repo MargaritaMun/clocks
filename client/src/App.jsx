@@ -7,6 +7,8 @@ import axios from "axios";
 import SigninPage from "./components/pages/SigninPage";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import Ololopage from './components/pages/Ololopage';
+import AiPage from './components/pages/AiPage';
 import ErrorPage from './components/pages/ErrorPage';
 
 function App() {
@@ -44,6 +46,7 @@ function App() {
   };
   return (
     <Routes>
+
       <Route
         element={
           <Layout
@@ -60,6 +63,8 @@ function App() {
           path="/signin"
           element={<SigninPage signinHandler={signinHandler} />}
         />
+<Route path="/ai" element={<AiPage />} />
+     <Route path="/ololo" element={<Ololopage />} />
         <Route path="/about" />
           <Route path="/*" element={<ErrorPage />} />
       </Route>
