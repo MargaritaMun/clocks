@@ -1,16 +1,17 @@
-import { useState } from "react";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router";
-import Layout from "./components/Layout";
+import { useState } from 'react';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router';
+import Layout from './components/Layout';
+import MainPage from './components/pages/MainPage';
+import AdminPage from './components/pages/AdminPage';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<MainPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+      </Route>
+    </Routes>
   );
 }
 
