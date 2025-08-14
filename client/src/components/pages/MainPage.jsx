@@ -4,9 +4,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function MainPage() {
+export default function MainPage({ submitHandler }) {
   const [clocks, setClocks] = useState([]);
-  
 
   const settings = {
     dots: true,
@@ -18,6 +17,13 @@ export default function MainPage() {
     autoplaySpeed: 3000,
   };
 
+  if (window.location.hash === "#contact-form") {
+    const formElement = document.getElementById("contact-form");
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
   useEffect(() => {
     axios.get("/api/clocks/all").then((res) => setClocks(res.data));
   }, []);
@@ -26,36 +32,39 @@ export default function MainPage() {
     <div>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <Slider {...settings}>
-          {clocks.map((clock) => (
-            <div key={clock.id}>
-              <p>{clock.name}</p> <img src={clock.image} width={180} />
-              <p>{clock.description} </p>
-            </div>
-          ))}
+        {clocks.map((clock) => (
+          <div key={clock.id}>
+            <p>{clock.name}</p> <img src={clock.image} width={180} />
+            <p>{clock.description} </p>
+          </div>
+        ))}
         </Slider>
       </div>
-      <form>
-        <div>
+      <section id="contact-form">
+        <h2>Контактная форма</h2>
+        <form onSubmit={submitHandler}>
           <label>
             Name: <input type="text" name="userName" />
           </label>
-        </div>
-        <div>
-          <label>
-            Phone: <input type="text" name="phoneNumber" />
-          </label>
-        </div>
-        <div>
-          <label>
-            Image: <input type="text" name="image" />
-          </label>
-        </div>
-        <div>
-          <label>
-            Description: <input type="text" name="description" />
-          </label>
-        </div>
-      </form>
+
+          <div>
+            <label>
+              Phone: <input type="text" name="phoneNumber" />
+            </label>
+          </div>
+          <div>
+            <label>
+              Image: <input type="text" name="image" />
+            </label>
+          </div>
+          <div>
+            <label>
+              Description: <input type="text" name="description" />
+            </label>
+          </div>
+          <button>Отправить форму</button>
+        </form>
+      </section>
     </div>
   );
 }

@@ -40,9 +40,14 @@ class AuthController {
 
   static async signin(req, res) {
     try {
-      const { email, password } = req.body;
-      const { user } = await AuthService.signin({ email, password });
+      const { name, password } = req.body;
+
+      const user = await AuthService.signin({ name, password });
+
       const { accessToken, refreshToken } = generateTokens({ user });
+      console.log(user);
+      
+
       res
         .cookie('refreshToken', refreshToken, cookieConfig.refresh)
         .json({ user, accessToken });
