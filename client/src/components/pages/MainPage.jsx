@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Container from 'react-bootstrap/esm/Container';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import AIChatWidget from './AiPage'; // импорт виджета чата
 
 export default function MainPage({ submitHandler }) {
   const [clocks, setClocks] = useState([]);
@@ -25,28 +28,31 @@ export default function MainPage({ submitHandler }) {
   }
 
   useEffect(() => {
-    axios.get("/api/clocks/all").then((res) => setClocks(res.data));
+    axios.get('/api/clocks/all').then((res) => setClocks(res.data));
   }, []);
 
   return (
     <div>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-        <Slider {...settings}>
-        {clocks.map((clock) => (
-          <div key={clock.id}>
-            <p>{clock.name}</p> <img src={clock.image} width={180} />
-            <p>{clock.description} </p>
-          </div>
-        ))}
-        </Slider>
+        <Container>
+          <Slider {...settings}>
+            {clocks.map((clock) => (
+              <div key={clock.id}>
+                <p>{clock.name}</p> 
+                <img src={clock.image} width={180} alt={clock.name} />
+                <p>{clock.description}</p>
+              </div>
+            ))}
+          </Slider>
+        </Container>
       </div>
+
       <section id="contact-form">
         <h2>Контактная форма</h2>
         <form onSubmit={submitHandler}>
           <label>
             Name: <input type="text" name="userName" />
           </label>
-
           <div>
             <label>
               Phone: <input type="text" name="phoneNumber" />
@@ -65,7 +71,9 @@ export default function MainPage({ submitHandler }) {
           <button>Отправить форму</button>
         </form>
       </section>
+
+      {/* Чат-виджет всегда поверх */}
+      <AIChatWidget />
     </div>
   );
 }
-

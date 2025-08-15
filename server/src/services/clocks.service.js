@@ -1,14 +1,12 @@
 const { Clock } = require('../../db/models');
 
 class ClockService {
-  static create({ title, text, userId }) {
-    return Clock.create({ title, text, userId });
+  static create({ name, image, description, adminId }) {
+    return Clock.create({ name, image, description, adminId });
   }
 
   static findById() {
-    return Clock.findAll({
-     
-    });
+    return Clock.findAll({});
   }
 
   static findOne(id) {
@@ -19,12 +17,13 @@ class ClockService {
     return Clock.destroy({ where: { id } });
   }
 
-  static update({ title, text, id }) {
-    return Clock.update({ title, text }, { where: { id } });
+  static async update({ name, image, description, id }) {
+    const clim = await Clock.findByPk(id)
+    return clim.update({ name, image, description });
   }
 
   static findAll() {
-    return Clock.findAll()
+    return Clock.findAll();
   }
 }
 module.exports = ClockService;

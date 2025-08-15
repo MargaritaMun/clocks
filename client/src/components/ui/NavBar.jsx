@@ -1,17 +1,7 @@
-// import React from "react";
-// import { useState } from "react";
-// export default function NavBar({ user }) {
-//   return (
-//     <header>
-//       <div>
-//         {user ? <div>Администратор</div> : <button>Войти</button>}
-//         <button>Отправить форму</button> <button>О нас</button>
-//       </div>
-//     </header>
-//   );
-// }
+
+
 import React from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 export default function NavBar({ user, logoutHandler, navigateAbout }) {
   const navigate = useNavigate();
 
@@ -35,12 +25,14 @@ export default function NavBar({ user, logoutHandler, navigateAbout }) {
           <div>
             <div>Администратор</div>
             <button onClick={logoutHandler}>Выйти</button>
+              <button onClick={() => navigate("/application")}>Заявки</button>
           </div>
         ) : (
           <div>
-            <button onClick={() => navigate("/signin")}>Войти</button>{" "}
+            <button onClick={() => navigate("/signin")}>Войти</button>
             <button onClick={handleScrollToForm}>Перейти к форме</button>{" "}
             <button onClick={navigateAbout}>О нас</button>
+            
           </div>
         )}
       </div>

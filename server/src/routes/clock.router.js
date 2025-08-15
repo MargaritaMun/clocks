@@ -8,6 +8,6 @@ ClockRouter.get('/all', ClockController.getAll);
 ClockRouter.get('/', verifyAccessToken, ClockController.getClocks);
 ClockRouter.get('/:id', ClockController.getOneClock);
 ClockRouter.delete('/:id', verifyAccessToken, ClockController.deleteClock);
-ClockRouter.patch('/:id', verifyAccessToken, ClockController.updateClock);
+ClockRouter.put('/:id', verifyAccessToken, ClockController.updateClock);
 
 module.exports = ClockRouter;

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Application.init({
     userName: DataTypes.STRING,
-    phoneNumber: DataTypes.INTEGER,
+    phoneNumber: DataTypes.STRING,
     image: DataTypes.STRING,
     description: DataTypes.STRING
   }, {
