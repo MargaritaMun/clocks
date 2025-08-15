@@ -6,22 +6,22 @@ class ApplicationService {
     return Application.create({ userName, phoneNumber,image, description});
   }
 
-//   static findById() {
-//     return Clock.findAll({
+  static findById() {
+    return Application.findAll({
      
-//     });
-//   }
+    });
+  }
 
-//   static findOne(id) {
-//     return Clock.findByPk(id);
-//   }
+  static findOne(id) {
+    return Application.findByPk(id);
+  }
 
   
 
  
 
-//   static findAll() {
-//     return Clock.findAll()
-//   }
+  static findAll() {
+    return Application.findAll()
+  }
 }
 module.exports = ApplicationService;

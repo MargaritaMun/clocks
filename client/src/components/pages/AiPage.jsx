@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import axiosInstance from '../api/axiosInstance';
@@ -39,10 +41,21 @@ function AIChatWidget() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+            boxShadow: '0 6px 15px rgba(0,0,0,0.5)',
+            background: 'linear-gradient(145deg, #d4af37, #b8860b)',
+            border: 'none',
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 6px 15px rgba(0,0,0,0.5)';
           }}
         >
-          <FaComments size={24} />
+          <FaComments size={24} color="white" />
         </Button>
       </div>
 
@@ -58,16 +71,28 @@ function AIChatWidget() {
             display: 'flex',
             flexDirection: 'column',
             zIndex: 1000,
-            boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+            boxShadow: '0 6px 25px rgba(0,0,0,0.5)',
+            border: '1px solid #d4af37',
+            backgroundColor: '#1b1b1b',
+            color: 'white',
+            animation: 'fadeIn 0.3s ease-in-out',
           }}
         >
           {/* Шапка с контактами */}
-          <Card.Header className="d-flex justify-content-around align-items-center">
+          <Card.Header
+            className="d-flex justify-content-around align-items-center"
+            style={{
+              backgroundColor: '#d4af37',
+              color: '#1b1b1b',
+              fontWeight: 'bold',
+              borderBottom: '1px solid #b8860b',
+            }}
+          >
             <a
               href="https://t.me/margaret_mun"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: '#0088cc', fontSize: '20px' }}
+              style={{ color: '#1b1b1b', fontSize: '20px' }}
               title="Написать в Telegram"
             >
               <FaTelegramPlane />
@@ -76,12 +101,12 @@ function AIChatWidget() {
               href="https://wa.me/89170047567"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: '#25D366', fontSize: '20px' }}
+              style={{ color: '#1b1b1b', fontSize: '20px' }}
               title="Написать в WhatsApp"
             >
               <FaWhatsapp />
             </a>
-            <span style={{ fontSize: '14px', fontWeight: 'bold' }}>AI Чат</span>
+            <span style={{ fontSize: '14px' }}>AI Чат</span>
           </Card.Header>
 
           {/* Сообщения */}
@@ -91,10 +116,21 @@ function AIChatWidget() {
                 key={index}
                 className={`mb-2 ${
                   message.role === 'user'
-                    ? 'ms-auto bg-primary text-white'
-                    : 'me-auto bg-light'
+                    ? 'ms-auto'
+                    : 'me-auto'
                 }`}
-                style={{ maxWidth: '80%' }}
+                style={{
+                  maxWidth: '80%',
+                  background:
+                    message.role === 'user'
+                      ? 'linear-gradient(145deg, #d4af37, #b8860b)'
+                      : '#2e2e2e',
+                  color: message.role === 'user' ? '#1b1b1b' : 'white',
+                  borderRadius: '10px',
+                  border: message.role === 'user'
+                    ? '1px solid #b8860b'
+                    : '1px solid #444',
+                }}
               >
                 <Card.Body className="p-2">
                   <small>{message.content}</small>
@@ -104,21 +140,44 @@ function AIChatWidget() {
           </Card.Body>
 
           {/* Форма ввода */}
-          <Card.Footer>
+          <Card.Footer style={{ backgroundColor: '#1b1b1b', borderTop: '1px solid #d4af37' }}>
             <Form className="d-flex gap-2" onSubmit={submitHandler}>
               <Form.Control
                 type="text"
                 name="message"
                 placeholder="Напишите сообщение..."
                 required
+                style={{
+                  backgroundColor: '#2e2e2e',
+                  color: 'white',
+                  border: '1px solid #d4af37',
+                }}
               />
-              <Button type="submit" variant="primary">
+              <Button
+                type="submit"
+                variant="primary"
+                style={{
+                  backgroundColor: '#d4af37',
+                  border: 'none',
+                  color: '#1b1b1b',
+                  fontWeight: 'bold',
+                }}
+              >
                 ➤
               </Button>
             </Form>
           </Card.Footer>
         </Card>
       )}
+
+      <style>
+        {`
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}
+      </style>
     </div>
   );
 }

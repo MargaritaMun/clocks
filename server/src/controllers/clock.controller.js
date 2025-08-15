@@ -3,9 +3,11 @@ const ClockService = require('../services/clocks.service');
 class ClockController {
   static async createClock(req, res) {
     try {
+      console.log(req.body);
+      
       const id = res.locals.user.id;
-      const { title, text } = req.body;
-      const Clock = await ClockService.create({ title, text, userId: id });
+      const { name, image, description } = req.body;
+      const Clock = await ClockService.create({ name, image, description, adminId: id });
       return res.json(Clock);
     } catch (error) {
       console.log(error);
@@ -46,9 +48,12 @@ class ClockController {
   static async updateClock(req, res) {
     try {
       const { id } = req.params;
-      const { title, text } = req.body;
-      const Clock = await ClockService.update({ title, text, id });
+      const {name, image, description } = req.body;
+      const Clock = await ClockService.update({ name, image, description, id });
+     
+      
       return res.json(Clock);
+
     } catch (error) {
       console.log(error);
     }

@@ -19,6 +19,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+       adminId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references:{
+          model:'Admins',
+          key:'id'
+        }
+      },
       description: {
         type: Sequelize.STRING,
         allowNull: false,
