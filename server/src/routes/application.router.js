@@ -7,6 +7,7 @@ applicationRouter.post('/',ApplicationController.createApplication);
 applicationRouter.get('/', ApplicationController.getAll);
 applicationRouter.get('/:id', ApplicationController.getOneApplication);
 applicationRouter.delete('/:id',  ApplicationController.deleteApplication);
+applicationRouter.post('/send-email', ApplicationController.sendEmail);
 applicationRouter.put('/:id',  ApplicationController.updateApplication);
 
 module.exports = applicationRouter;

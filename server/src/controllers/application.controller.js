@@ -1,5 +1,6 @@
 const ApplicationService = require('../services/application.service');
-
+const nodemailer = require('nodemailer')
+require('dotenv').config()
 class ApplicationController {
   static async createApplication(req, res) {
   try {
@@ -42,7 +43,7 @@ class ApplicationController {
   static async deleteApplication(req, res) {
     try {
       const { id } = req.params;
-      const application = await ApplicationService.delete(id);
+      const application = await ApplicationService.deleteApplication(id);
       return res.json(application);
     } catch (error) {
       console.log(error);
@@ -65,6 +66,31 @@ class ApplicationController {
       return res.json(applications);
     } catch (error) {
       console.log(error);
+    }
+  }
+
+   static async sendEmail(req, res) {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.USER_EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+    try {
+      const { userName, email, phoneNumber, image, description } = req.body;
+      await transporter.sendMail({
+        from: process.env.USER_EMAIL,
+        to: email,
+        subject: 'Прилетела новая заявка',
+        html: `<p>${description}</p>
+        <p>${phoneNumber}</p>
+        <p>${image}</p>`,
+      });
+      res.send('Сообщение отправлено!');
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
     }
   }
 }
